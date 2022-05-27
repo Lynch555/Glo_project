@@ -1,5 +1,5 @@
 let title = "Project1";
-let screens = ("Simple, Complex, Interactive");
+let screens = "Simple, Complex, Interactive";
 let screenPrice = 5;
 let rollback = 50;
 let fullPrice = 500;
