@@ -1,25 +1,44 @@
-'use strict'
+'use strict';
 
-const DomElement = function () {
-    this.selector = '';
-    this.height = 100;
-    this.width = 100;
-    this.bg = 'red';
-    this.fontSize = 20;
+const DomElement = function (selector, height = 100, width = 100, bg = 'red', fontSize = 20) {
+  this.selector = selector;
+  this.height = height;
+  this.width = width;
+  this.bg = bg;
+  this.fontSize = fontSize;
 
-    this.getString = function () {
-        if (this.selector[0] == '.') {
-            document.body.innerHTML = '<div class="' + this.selector.slice(1) + '">Новый div</div>'
-            document.querySelector('div').style.cssText = 'height: ' + this.height + 'px; width: ' + this.width + 'px; background: ' + this.bg + '; font-size: ' + this.fontSize + 'px'
-        } else if (this.selector[0] == '#') {
-            document.body.innerHTML = '<p id="' + this.selector.slice(1) + '">Новый параграф</p>'
-            document.querySelector('p').style.cssText = 'height:' + this.height + 'px; width:' + this.width + 'px; background: ' + this.bg + '; font-size: ' + this.fontSize + 'px'
-        }
+  this.createElem = () => {
+    let elem;
+    const inText = ('Текст');
+    if (this.selector[0] === '.') {
+      elem = document.createElement('div');
+      elem.classList.add(`${this.selector.slice(1)}`);
     }
-}
+    if (this.selector[0] === '#') {
+      elem = document.createElement('p');
+      elem.id = `${this.selector.slice(1)}`;
+    }
+
+    elem.style.cssText = `margin: 0;
+    padding: 5px;
+    height: ${this.height}px;
+    width: ${this.width}px;
+    background: ${this.bg};
+    font-size: ${this.fontSize}px;
+    position: absolute;
+    top: 0;
+    left: 0;`;
+
+    if (inText || inText.trim() !== '') {
+      elem.innerText = inText;
+    }
+
+    return document.body.append(elem);
+  };
+};
 
 const element = new DomElement();
 element.selector = '.div';
-element.getString();
+element.createElem();
 
 console.log(element);
